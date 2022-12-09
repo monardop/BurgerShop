@@ -16,13 +16,14 @@ def load_main():
     logo_widget.image = logo_img
     logo_widget.pack()
 
-    ttk.Entry(login_frame, textvariable="User", width= 40).pack(pady=40)
-    ttk.Entry(login_frame, textvariable="Password", width= 40).pack()
+    user = ttk.Entry(login_frame, textvariable="User", width= 40).pack(pady=10)
+    password =ttk.Entry(login_frame, show="*", width= 40).pack()
 
 
     tk.Button(
         login_frame,
         text="Login",
+        width=15,
         bg="red",
         fg="white",
         cursor="hand2"
