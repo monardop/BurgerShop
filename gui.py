@@ -31,30 +31,36 @@ def load_main():
     
 
 def load_vendorsUI():
-    vendors_frame.grid(row= 2, column= 2, sticky="nesw")
+    vendors_frame.grid(row= 3, column= 2, sticky="nesw")
     vendors_frame.tkraise()
+    for column in [0,1,2]:
+        vendors_frame.columnconfigure(column, weight=1)
 
     logo_img = ImageTk.PhotoImage(file=r"C:\Users\User\Desktop\BurgerShop\assets\logo.png")
     logo_widget = tk.Label(vendors_frame, image= logo_img)
     logo_widget.image = logo_img
     logo_widget.grid(row=0, column=0)
-    logo_widget.pack()
-
-    container = tk.Frame(vendors_frame, width=60)
-    left_side = tk.Label(container, text="Hello there").pack()
-    right_side = tk.Label(container, text="this is another hello there").pack()
     
-    container.pack()
-
-
+    logout_button = tk.Button(vendors_frame, text="Logout", bg="red")
+    logout_button.grid(row=0, column=1)
+    
+    container = tk.Frame(vendors_frame, width=500)
+    for i in [0,1,2]:
+        container.columnconfigure(i, weight=1)
+    left_side = tk.Label(container,height=300 ,text="Hello there")
+    left_side.grid(column=0, row=0)
+    right_side = tk.Label(container, height=400 ,text="This is another hello there")
+    right_side.grid(column=2, row=0)
+    container.grid(row=2)
+    
     cancel_button = tk.Button(vendors_frame, text="Cancel")
-    cancel_button.pack()
+    cancel_button.grid(column=0, row=3)
 
     submit_button = tk.Button(vendors_frame, text="Submit")
-    submit_button.pack()
+    submit_button.grid(row=3, column=2)
+    vendors_frame.pack()
 
-    logout_button = tk.Button(vendors_frame, text="Logout", bg="red")
-    logout_button.pack()
+    
 
 
 def load_adminUI():
@@ -63,9 +69,10 @@ def load_adminUI():
 
 root = tk.Tk()
 root.title("Pabletoo's Burger")
-login_frame = tk.Frame(root, width= 800, height=600)
-vendors_frame = tk.Frame(root, width= 800, height=600)
-admin_frame = tk.Frame(root, width= 800, height=600)
+login_frame = tk.Frame(root)
+vendors_frame = tk.Frame(root)
+admin_frame = tk.Frame(root)
 
-load_vendorsUI()
+load_main()
+
 root.mainloop()
