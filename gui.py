@@ -2,9 +2,27 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk
 
+#Const
+bg_color = "#262626"
+bg_alternative = "#333430"
+main_color = "#DCE38D"
+main_variant = "#F6F2CD"
+
 def clear_window(frame):
     for widget in frame.winfo_children():
         widget.destroy()
+
+def create_button(frame, text:str, color:str):
+    button = tk.Button(
+        frame,
+        text=text,
+        width=15,
+        bg=color,
+        fg="white",
+        cursor="hand2",
+        padx=5
+    )
+    return button
 
 def load_main():
     login_frame.grid(row=2, column=0, sticky="nesw")
@@ -12,7 +30,7 @@ def load_main():
 
     #Logo
     logo_img = ImageTk.PhotoImage(file=r"C:\Users\User\Desktop\BurgerShop\assets\logo.png")
-    logo_widget = tk.Label(login_frame, image= logo_img)
+    logo_widget = tk.Label(login_frame, image= logo_img, bg= bg_color)
     logo_widget.image = logo_img
     logo_widget.pack()
 
@@ -20,14 +38,7 @@ def load_main():
     password =ttk.Entry(login_frame, show="*", width= 40).pack()
 
 
-    tk.Button(
-        login_frame,
-        text="Login",
-        width=15,
-        bg="red",
-        fg="white",
-        cursor="hand2"
-    ).pack(pady=20)
+    login_button = create_button(login_frame, "Login", "red").pack(pady=20)
     
 
 def load_vendorsUI():
@@ -37,27 +48,21 @@ def load_vendorsUI():
         vendors_frame.columnconfigure(column, weight=1)
 
     logo_img = ImageTk.PhotoImage(file=r"C:\Users\User\Desktop\BurgerShop\assets\logo.png")
-    logo_widget = tk.Label(vendors_frame, image= logo_img)
+    logo_widget = tk.Label(vendors_frame, image= logo_img, bg= bg_color)
     logo_widget.image = logo_img
     logo_widget.grid(row=0, column=0)
     
-    logout_button = tk.Button(vendors_frame, text="Logout", bg="red")
-    logout_button.grid(row=0, column=1)
+    logout_button = create_button(vendors_frame, "Logout", "red")
+    logout_button.grid(row=0, column=2)
     
-    container = tk.Frame(vendors_frame, width=500)
-    for i in [0,1,2]:
-        container.columnconfigure(i, weight=1)
-    left_side = tk.Label(container,height=300 ,text="Hello there")
-    left_side.grid(column=0, row=0)
-    right_side = tk.Label(container, height=400 ,text="This is another hello there")
-    right_side.grid(column=2, row=0)
-    container.grid(row=2)
+
     
-    cancel_button = tk.Button(vendors_frame, text="Cancel")
+    cancel_button = create_button(vendors_frame, "Cancel", "red")
     cancel_button.grid(column=0, row=3)
 
-    submit_button = tk.Button(vendors_frame, text="Submit")
+    submit_button = create_button(vendors_frame, "Submit", "green")
     submit_button.grid(row=3, column=2)
+
     vendors_frame.pack()
 
     
@@ -69,9 +74,9 @@ def load_adminUI():
 
 root = tk.Tk()
 root.title("Pabletoo's Burger")
-login_frame = tk.Frame(root)
-vendors_frame = tk.Frame(root)
-admin_frame = tk.Frame(root)
+login_frame = tk.Frame(root, bg= bg_color)
+vendors_frame = tk.Frame(root, bg=bg_color)
+admin_frame = tk.Frame(root, bg= bg_color)
 
 load_main()
 
