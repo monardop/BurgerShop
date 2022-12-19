@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from PIL import ImageTk
+from PIL import ImageTk, Image
 
 #Const
 bg_color = "#262626"
@@ -25,21 +25,17 @@ def create_button(frame, text:str, color:str):
     return button
 
 def load_main():
-    login_frame.grid(row=2, column=0, sticky="nesw")
-    login_frame.tkraise()
 
-    #Logo
-    logo_img = ImageTk.PhotoImage(file=r"C:\Users\User\Desktop\BurgerShop\assets\logo.png")
-    logo_widget = tk.Label(login_frame, image= logo_img, bg= bg_color)
-    logo_widget.image = logo_img
-    logo_widget.pack()
+    logo_img = Image.open(r"C:\Users\User\Desktop\BurgerShop\assets\logo.png")
+    logo_img = logo_img.resize((200,200), Image.ANTIALIAS)
+    img = ImageTk.PhotoImage(logo_img)
+    label_img = tk.Label(login_frame, image= img, bg=bg_color).pack()
 
-    user = ttk.Entry(login_frame, textvariable="User", width= 40).pack(pady=10)
-    password =ttk.Entry(login_frame, show="*", width= 40).pack()
+    user = ttk.Entry(login_frame, width= 25).pack()
+    password =ttk.Entry(login_frame, show="*", width= 25).pack()
+    login_button = create_button(login_frame, "Login", main_color).pack()
 
-
-    login_button = create_button(login_frame, "Login", "red").pack(pady=20)
-    
+    login_frame.pack()
 
 def load_vendorsUI():
     vendors_frame.grid(row= 3, column= 2, sticky="nesw")
@@ -65,15 +61,14 @@ def load_vendorsUI():
 
     vendors_frame.pack()
 
-    
-
-
 def load_adminUI():
     pass
 
 
 root = tk.Tk()
 root.title("Pabletoo's Burger")
+root.geometry("800x600")
+root.resizable(width=0, height=0)
 login_frame = tk.Frame(root, bg= bg_color)
 vendors_frame = tk.Frame(root, bg=bg_color)
 admin_frame = tk.Frame(root, bg= bg_color)
